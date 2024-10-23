@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import RegisterImageUploader from "@/app/components/custom/RegisterImage";
 import Loader from "@/app/components/custom/Loader"
 import { getDbUsers } from "@/lib/actions/actions"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   email: z.string().min(2).email("Invalid email"),
@@ -29,7 +30,9 @@ const formSchema = z.object({
   message: "Password do not match",
   path: ["confirmPassword"]
 })
+
 const Register = () => {
+  const router = useRouter()
   const [users, setUsers] = useState<any>([]);
   const [query, setQuery] = useState("")
 
@@ -176,7 +179,7 @@ const Register = () => {
           </div>
 
           <button
-            onClick={() => window.location.replace('/login')}
+            onClick={() => router.replace('/login')}
             className="text-sm text-gray-950 transition flex items-center justify-center duration-150 ease hover:text-blue-700">
             You have an account? LogIn
           </button>
