@@ -26,7 +26,7 @@ const formSchema = z.object({
     path: ["confirmPassword"]
 })
 
-function forgetPassword({ params }: { params: { Id: string } }) {
+function ForgetPassword({ params }: { params: { Id: string } }) {
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -104,4 +104,4 @@ function forgetPassword({ params }: { params: { Id: string } }) {
 }
 
 export const dynamic = "force-dynamic"
-export default forgetPassword;
+export default ForgetPassword;

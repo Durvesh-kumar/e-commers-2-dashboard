@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 interface ReviewsPropes {
-    productId: any
+    productId: string
 }
 const Reviews: React.FC<ReviewsPropes> = ({ productId }) => {
 

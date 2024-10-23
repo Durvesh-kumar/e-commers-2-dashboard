@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function DashboardUserTop() {
+ function DashboardUserTop() {
     const { status, data } = useSession();
 
     const router = useRouter();
@@ -78,3 +78,4 @@ export default function DashboardUserTop() {
 }
 
 export const dynamic = "force-dynamic";
+export default DashboardUserTop;
