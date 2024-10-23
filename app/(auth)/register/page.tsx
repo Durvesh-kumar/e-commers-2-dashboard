@@ -18,8 +18,6 @@ import toast from "react-hot-toast";
 import RegisterImageUploader from "@/app/components/custom/RegisterImage";
 import Loader from "@/app/components/custom/Loader"
 import { getDbUsers } from "@/lib/actions/actions"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
 
 const formSchema = z.object({
   email: z.string().min(2).email("Invalid email"),
@@ -31,9 +29,7 @@ const formSchema = z.object({
   message: "Password do not match",
   path: ["confirmPassword"]
 })
-
 const Register = () => {
-  const router = useRouter()
   const [users, setUsers] = useState<any>([]);
   const [query, setQuery] = useState("")
 
@@ -139,15 +135,17 @@ const Register = () => {
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" {...field} onChange={(e) => { field.onChange(e), setQuery(e.target.value) }} onKeyDown={handlePressKey} placeholder="Enter email..." />
-                </FormControl>
-                <FormMessage className="text-orange-700 text-sm font-normal" />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} onChange={(e) => { field.onChange(e), setQuery(e.target.value) }} onKeyDown={handlePressKey} placeholder="Enter email..." />
+                  </FormControl>
+                  <FormMessage className="text-orange-700 text-sm font-normal" />
+                </FormItem>
+              )
+            }}
           />
           <FormField
             control={form.control}
@@ -179,11 +177,11 @@ const Register = () => {
             <Button type="submit" className="bg-blue-700 text-white hover:bg-white hover:text-black border border-black">Submit</Button>
           </div>
 
-          <Link
-          href="/login"
+          <button
+            onClick={() => window.location.replace('/login')}
             className="text-sm text-gray-950 transition flex items-center justify-center duration-150 ease hover:text-blue-700">
             You have an account? LogIn
-          </Link>
+          </button>
         </form>
 
       </Form>
