@@ -19,6 +19,7 @@ import RegisterImageUploader from "@/app/components/custom/RegisterImage";
 import Loader from "@/app/components/custom/Loader"
 import { getDbUsers } from "@/lib/actions/actions"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const formSchema = z.object({
   email: z.string().min(2).email("Invalid email"),
@@ -178,11 +179,11 @@ const Register = () => {
             <Button type="submit" className="bg-blue-700 text-white hover:bg-white hover:text-black border border-black">Submit</Button>
           </div>
 
-          <button
-            onClick={() => router.replace('/login')}
+          <Link
+          href="/login"
             className="text-sm text-gray-950 transition flex items-center justify-center duration-150 ease hover:text-blue-700">
             You have an account? LogIn
-          </button>
+          </Link>
         </form>
 
       </Form>
