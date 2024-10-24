@@ -2,9 +2,9 @@ import { sendEmail } from "@/helpers/nodemailer";
 import { ConnectedToDB } from "@/lib/db/ConnectToDB";
 import DashboardUser from "@/lib/models/DashboardUser";
 import bcrypt from "bcryptjs"
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextResponse) => {
+export const POST = async (req: NextRequest) => {
     try {
         const { name, email, image, password, role = "General" } = await req.json();
         
