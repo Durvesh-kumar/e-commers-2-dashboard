@@ -16,7 +16,7 @@ export const GET = async (req: NextRequest, { params }: { params: { productId: s
             $or: [
                 { category: product.category },
                 { brand: product.brand },
-                {tags: {$in: product.tags.map((item)=> item)}}
+                {tags: {$in: product.tags.map((item:any)=> item)}}
             ],
             _id: { $ne: product._id }
         })
