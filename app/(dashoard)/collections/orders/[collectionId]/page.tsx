@@ -15,7 +15,6 @@ import Loader from "@/app/components/custom/Loader";
 
 import { useEffect, useState } from "react";
 import Pagination from "@/app/components/Pagination";
-import { OrderType } from "@/lib/type";
 
 export default function CollectionOrders({ params }: { params: { collectionId: string } }) {
     const [orders, setOrders] = useState([]);
