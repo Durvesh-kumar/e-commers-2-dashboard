@@ -15,7 +15,7 @@ export default async function Home() {
     <div className="grid gap-8 mt-5">
       <h1 className="text-gray-950 text-2xl font-bold">Dashboard</h1>
       <hr className="py-0.5 bg-black shadow-md rounded-2xl" />
-      <CardPage totalCustomer={totalCustomers?.length} totalOrders={totalOrders} totalRevenue={totalRevenus} />
+      <CardPage totalCustomer={totalCustomers} totalOrders={totalOrders} totalRevenue={totalRevenus} />
       <SalesChart grapData={grapData}/>
     </div>
   )

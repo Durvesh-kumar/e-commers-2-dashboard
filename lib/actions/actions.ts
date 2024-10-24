@@ -1,4 +1,5 @@
 import { ConnectedToDB } from "../db/ConnectToDB";
+import Customer from "../models/Customer";
 import Order from "../models/Orders";
 
 export const getDbUsers = async () => {
@@ -44,17 +45,9 @@ export const getcollectionOrders = async (collectionId: string) => {
 };
 
 export const getCustomers = async () => {
-    try {
-        const res = await fetch(`${process.env.DASHBOARD_PUBLIC_URL}/api/customers`, {
-            method: "GET"
-        });
-
-        if (res.ok) {
-            return await res.json()
-        }
-    } catch (error) {
-        console.log("[getcollectionOrders_GET]", error);
-    }
+    await ConnectedToDB();
+    const customers = await Customer.find()
+    return customers?.length
 };
 
 export const getTotalSales = async () => {

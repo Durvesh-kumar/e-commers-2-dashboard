@@ -33,8 +33,6 @@ export default function Products() {
             setLoading(false)
         }
     }
-    console.log(customers);
-    
 
     const page = Number(pages);
     const limit = 10;
