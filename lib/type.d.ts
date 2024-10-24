@@ -6,7 +6,7 @@ type ProductType = {
    discription: string;
    media: [string];
    brand: string;
-   collections: CollectionType;
+   collections: CollectionType |any;
    tags: [string];
    price: number;
    pay: number;

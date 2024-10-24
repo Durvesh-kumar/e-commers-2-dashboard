@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Pagination from "@/app/components/Pagination";
-import { CollectionType } from "@/lib/type";
 
 const Collections = () => {
   const router = useRouter();
