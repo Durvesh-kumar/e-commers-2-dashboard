@@ -1,7 +1,7 @@
 import Product from "@/lib/models/Product";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async(req:NextResponse, {params}:{params: {collectionId: string}})=>{
+export const GET = async(req:NextRequest, {params}:{params: {collectionId: string}})=>{
     try {
         const products = await Product.find({ collections: params.collectionId});
 
