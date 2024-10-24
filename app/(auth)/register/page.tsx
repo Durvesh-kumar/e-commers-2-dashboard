@@ -29,11 +29,12 @@ const formSchema = z.object({
   message: "Password do not match",
   path: ["confirmPassword"]
 })
+
 const Register = () => {
   const [users, setUsers] = useState<any>([]);
   const [query, setQuery] = useState("")
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
