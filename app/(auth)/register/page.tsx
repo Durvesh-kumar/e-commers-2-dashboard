@@ -17,7 +17,6 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import RegisterImageUploader from "@/app/components/custom/RegisterImage";
 import Loader from "@/app/components/custom/Loader"
-import { getDbUsers } from "@/lib/actions/actions"
 
 const formSchema = z.object({
   email: z.string().min(2).email("Invalid email"),
@@ -28,13 +27,12 @@ const formSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Password do not match",
   path: ["confirmPassword"]
-})
+});
+
 
 const Register = () => {
-  const [users, setUsers] = useState<any>([]);
-  const [query, setQuery] = useState("")
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,10 +45,6 @@ const Register = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (values.email === users?.email) {
-      toast.error("User already exist")
-      return
-    }
     setLoading(true)
     const res = await fetch('/api/register', {
       method: "POST",
@@ -66,7 +60,7 @@ const Register = () => {
 
     if (data.error) {
       setLoading(false)
-      toast.error(data.message)
+      toast.error(data.message);
     }
   }
 
@@ -75,32 +69,6 @@ const Register = () => {
       e.preventDefault()
     }
   }
-
-
-  useEffect(() => {
-    async function Users() {
-      const getUsers = await getDbUsers()
-      setUsers(getUsers)
-    }
-    Users()
-  }, []);
-
-
-  const searchQuery = (query: string) => {
-    let filterData = users;
-    if (query) {
-      filterData = users?.filter((user: DashboardUserType) =>
-        user.email.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      )
-      setUsers(filterData)
-    } else {
-      setUsers(filterData)
-    }
-  };
-
-  useEffect(() => {
-    searchQuery(query)
-  }, [query])
 
   return loading ? <Loader /> : (
     <div className="flex relative flex-col h-fit items-center justify-center p-10">
@@ -120,6 +88,7 @@ const Register = () => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="name"
@@ -133,21 +102,22 @@ const Register = () => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => {
-              return (
+            render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} onChange={(e) => { field.onChange(e), setQuery(e.target.value) }} onKeyDown={handlePressKey} placeholder="Enter email..." />
+                    <Input type="email" {...field} onKeyDown={handlePressKey} placeholder="Enter email..." />
                   </FormControl>
                   <FormMessage className="text-orange-700 text-sm font-normal" />
                 </FormItem>
               )
-            }}
+            }
           />
+
           <FormField
             control={form.control}
             name="password"
