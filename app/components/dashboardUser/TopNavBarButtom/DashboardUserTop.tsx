@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
- function DashboardUserTop() {
+function DashboardUserTop() {
     const { status, data } = useSession();
 
     const router = useRouter();
@@ -23,7 +23,7 @@ import toast from "react-hot-toast";
         }
     }
 
-    const showSession = () => {
+    const ShowSession = () => {
         if (status === "authenticated") {
             return (
                 <div className="flex flex-col gap-4">
@@ -44,7 +44,7 @@ import toast from "react-hot-toast";
             )
         } else if (status === "loading") {
             return (
-                <span className="text-[#888] text-sm mt-7">Loading...</span>
+                <span className="text-[#888] text-sm mt-7 animate-pulse">Loading...</span>
             )
         } else {
             return (
@@ -64,7 +64,7 @@ import toast from "react-hot-toast";
     return (
         <main className="flex gap-4 items-center">
             <div>
-                {showSession()}
+                {ShowSession()}
             </div>
             <div className="flex items-center justify-center">
                 {
