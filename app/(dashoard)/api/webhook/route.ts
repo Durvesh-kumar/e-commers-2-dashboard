@@ -52,8 +52,6 @@ export const POST = async(req:NextRequest)=>{
             );
 
             await ConnectedToDB();
-            console.log("amount_total",session.amount_total);
-            
             
             const newOrder =  new Order({
                 customerClerkId: customerInfo.clerkId,
@@ -61,8 +59,6 @@ export const POST = async(req:NextRequest)=>{
                 totalAmount: session.amount_total ? session.amount_total / 100 : 0,
                 shippingAddress,
             });
-            console.log("newOrder",newOrder);
-            
 
             await newOrder.save();
             let customer = await Customer.findOne({ clerkId: customerInfo.clerkId});
