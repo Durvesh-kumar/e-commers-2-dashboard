@@ -2,7 +2,7 @@ import { ConnectedToDB } from "@/lib/db/ConnectToDB";
 import Review from "@/lib/models/Review";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextResponse, { params }: { params: { productId: string } }) => {
+export const POST = async (req: NextRequest, { params }: { params: { productId: string } }) => {
     try {
 
         await ConnectedToDB();
