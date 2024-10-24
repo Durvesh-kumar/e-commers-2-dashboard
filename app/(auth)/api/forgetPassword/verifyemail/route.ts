@@ -1,9 +1,9 @@
 import { sendEmail } from "@/helpers/nodemailer";
 import { ConnectedToDB } from "@/lib/db/ConnectToDB";
 import DashboardUser from "@/lib/models/DashboardUser";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export const POST = async (req:NextResponse)=>{
+export const POST = async (req:NextRequest)=>{
     
     try {
         const {email} = await req.json();
