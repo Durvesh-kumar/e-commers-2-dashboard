@@ -19,5 +19,3 @@ export const ConnectedToDB = async (): Promise<void> => {
         console.log(error);
     }
 };
-
-export const dynamic = "force-dynamic"
