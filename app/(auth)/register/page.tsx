@@ -135,17 +135,16 @@ const Register = () => {
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="email" {...field} onChange={(e) => { field.onChange(e), setQuery(e.target.value) }} onKeyDown={handlePressKey} placeholder="Enter email..." />
-                  </FormControl>
-                  <FormMessage className="text-orange-700 text-sm font-normal" />
-                </FormItem>
-              )
-            }}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" {...field} onChange={(e) => { field.onChange(e), setQuery(e.target.value) }} onKeyDown={handlePressKey} placeholder="Enter email..." />
+                </FormControl>
+                <FormMessage className="text-orange-700 text-sm font-normal" />
+              </FormItem>
+            )
+            }
           />
           <FormField
             control={form.control}
