@@ -3,7 +3,7 @@ import Review from "@/lib/models/Review";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextResponse, { params }: { params: { reviewId: string } }) => {
+export const POST = async (req: NextRequest, { params }: { params: { reviewId: string } }) => {
     try {
 
         await ConnectedToDB();
