@@ -4,19 +4,23 @@ import { NextRequest, NextResponse } from "next/server"
 
 export const POST = async (req: NextRequest) => {
     try {
-        const { email, password } = await req.json();
+        const { id, password, confirmPassword } = await req.json();
 
-        if (!email || !password) {
+        if (!id || !password || !confirmPassword) {
             return NextResponse.json({ message: "Invalid user! Please try agian", error: true, success: false }, { status: 400 })
-        }
+        };
+
+        if(password !== confirmPassword){
+            return NextResponse.json({ message: "Password and Confirm Password not matche", error: true, success: false }, { status: 400 })
+        };
 
         await ConnectedToDB();
 
-        const user = await DashboardUser.findOne({ email });
+        const user = await DashboardUser.findById(id);
 
         if (!user) {
             return NextResponse.json({ message: "Invalid User", error: true, success: false }, { status: 400 });
-        }
+        };
 
         await DashboardUser.findByIdAndUpdate(user._id, { password: password });
 
@@ -25,5 +29,5 @@ export const POST = async (req: NextRequest) => {
     } catch (error) {
         console.log("[forgetPassword_POST]", error);
         return new NextResponse("Internal server Error", { status: 500 })
-    }
-}
+    };
+};

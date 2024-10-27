@@ -21,23 +21,28 @@ const formSchema = z.object({
     password: z.string().min(2).max(50),
     confirmPassword: z.string().min(2).max(50),
     id: z.string().min(5)
-}).refine((data) => data.password !== data.confirmPassword, {
+}).refine((data) => data.password === data.confirmPassword, {
     message: "Password do not match",
     path: ["confirmPassword"]
-})
+  });
 
-function ForgetPassword({ params }: { params: { Id: string } }) {
+function ForgetPassword({ params }: { params: { forgetPassword: string } }) {
+
+    const userId = decodeURIComponent(params.forgetPassword);
+    
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             password: "",
             confirmPassword: "",
-            id: params.Id,
+            id: userId,
         },
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log("HII");
+        
         try {
             const res = await fetch(`/api/forgetPassword`, {
                 method: "POST",
@@ -63,9 +68,10 @@ function ForgetPassword({ params }: { params: { Id: string } }) {
     }
     return (
         <div className="flex items-center justify-center h-screen bg-slate-50">
-            <div className="flex p-5 border shadow-lg rounded-lg bg-white">
+            <div className="flex flex-col p-5 border shadow-lg rounded-lg bg-white w-72">
+                <center className="font-bold my-5 text-3xl">Reset Password</center>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                         <FormField
                             control={form.control}
                             name="password"
@@ -93,7 +99,7 @@ function ForgetPassword({ params }: { params: { Id: string } }) {
                             )}
                         />
                         <div className="flex justify-end items-center">
-                            <Button type="submit" className="bg-blue-500 text-white border border-black hover:bg-white hover:text-black">Submit</Button>
+                        <Button type="submit" className="bg-blue-700 text-white hover:bg-white hover:text-black border border-black">Submit</Button>
                         </div>
 
                     </form>
