@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Pagination from "@/app/components/Pagination";
+import toast from "react-hot-toast";
 
 export default function Products() {
     const router = useRouter()
@@ -33,15 +34,21 @@ export default function Products() {
     const [pages, setPages] = useState(1);
 
     const getProducts = async () => {
-        const res = await fetch('/api/products', {
-            method: "GET"
-        })
-        if (res.ok) {
-
-            const data = await res.json();
-            setProducts(data);
-            setAllProducts(data)
-            setLoading(false)
+        try {
+            const res = await fetch('/api/products', {
+                method: "GET"
+            })
+            if (res.ok) {
+    
+                const data = await res.json();
+                setProducts(data);
+                setAllProducts(data)
+                setLoading(false)
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log("[products-new_GET]", error);
+            toast.error("Somthing went wrong! Please try agian")
         }
     }
 

@@ -15,15 +15,17 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import React from "react"
+import React, { useState } from "react"
 import Image from "next/image";
 import toast from "react-hot-toast";
+import Loader from "@/app/components/custom/Loader";
 
 const formSchema = z.object({
   email: z.string().min(2).email("Invalid email"),
   password: z.string().min(8).max(10),
 })
 const Login = () => {
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,15 +34,18 @@ const Login = () => {
     },
   })
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true)
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false
     })
     if (res?.error) {
+      setLoading(false)
       toast.error(res.error as string)
     }
     if (res?.ok) {
+      setLoading(false)
       toast.success("User login successfully");
       window.location.replace('/')
     }
@@ -51,7 +56,7 @@ const Login = () => {
       e.preventDefault()
     }
   }
-  return (
+  return loading ? <Loader/> : (
     <div className="flex relative flex-col h-screen items-center justify-center p-10">
       <Image src='/logo.png' alt="logo" width={1000} height={1000} className="h-[650px] w-ful absolute top-[-40px] animate-bounce   object-scale-down -z-50" />
 

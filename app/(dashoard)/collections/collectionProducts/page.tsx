@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Pagination from "@/app/components/Pagination";
+import toast from "react-hot-toast";
 
 export default function CollectionProducts() {
     const router = useRouter()
@@ -35,16 +36,23 @@ export default function CollectionProducts() {
     const [pages, setPages] = useState(1);
 
     const getProducts = async () => {
-        const res = await fetch(`/api/collections/${collectionId}/products`, {
-            method: "GET"
-        })
-        if (res.ok) {
-
-            const data = await res.json();
-            setProducts(data);
-            setAllProducts(data)
-            setLoading(false)
+        try {
+            const res = await fetch(`/api/collections/${collectionId}/products`, {
+                method: "GET"
+            })
+            if (res.ok) {
+    
+                const data = await res.json();
+                setProducts(data);
+                setAllProducts(data)
+                setLoading(false)
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log("[collectionProduct_GET]", error);
+            toast.error("Somthing went wrong! Please try agin")
         }
+        
     }
 
     const page = Number(pages);

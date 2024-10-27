@@ -32,7 +32,8 @@ const formSchema = z.object({
 
 const Register = () => {
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

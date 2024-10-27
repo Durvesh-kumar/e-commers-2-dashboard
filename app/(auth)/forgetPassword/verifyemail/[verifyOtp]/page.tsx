@@ -25,7 +25,6 @@ function VerifyToken({params}:{params:{verifyOtp: string}}) {
       });
 
       const data = await res.json()
-      setLoading(false)
       if (data.success) {
         toast.success(data.message);
         setLoading(false);
@@ -37,6 +36,7 @@ function VerifyToken({params}:{params:{verifyOtp: string}}) {
         setLoading(false)
       }
     } catch (error) {
+      setLoading(false);
       console.log("[VerifyToken]", error);
     };
   }

@@ -46,15 +46,18 @@ function VerifyEmail() {
             });
 
             const data = await res.json();
-            setLoading(false)
+            
             if (data.success) {
+                setLoading(false);
                 toast.success(data.message);
                 router.replace(`/forgetPassword/verifyemail/${values.email}`)
             }
             if(data.error){
+                setLoading(false);
                 toast.error(data.message)
             }
         } catch (error) {
+            setLoading(false);
             console.log("[forgetPassword_veryfyemailPage]", error);
             toast.error("Internal Server Error")
         }

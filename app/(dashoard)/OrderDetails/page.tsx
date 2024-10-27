@@ -3,6 +3,7 @@ import Loader from '@/app/components/custom/Loader';
 import OrderProductDetails from '@/app/components/orders/OrderProduct';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const OrderDetails = () => {
     const searchParams = useSearchParams();
@@ -13,16 +14,22 @@ const OrderDetails = () => {
     const [loading, setLoading] = useState(true)
 
     const getOrderDetails = async () => {
-        const res = await fetch("/api/orders/orderDetails", {
-            method: "POST",
-            body: JSON.stringify({ orderId, collectionId })
-        });
+        try {
+            const res = await fetch("/api/orders/orderDetails", {
+                method: "POST",
+                body: JSON.stringify({ orderId, collectionId })
+            });
 
-        if (res.ok) {
-            const data = await res.json()
-            setProductDetails(data.oederDetails);
-            SetShippingAddress(data.order.shippingAddress);
-            setLoading(false)
+            if (res.ok) {
+                const data = await res.json()
+                setProductDetails(data.oederDetails);
+                SetShippingAddress(data.order.shippingAddress);
+                setLoading(false)
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log("[OrderDetails_POST]", error);
+            toast.error("Somthing went wrong! Please try agian");
         }
     }
 
@@ -34,8 +41,8 @@ const OrderDetails = () => {
         <div className='flex flex-col gap-9'>
             <div>
                 {
-                    productDetails.map((item: OrderDetailsType, index:number) => (
-                        <div key={index+1}>
+                    productDetails.map((item: OrderDetailsType, index: number) => (
+                        <div key={index + 1}>
                             <OrderProductDetails productData={item.product} />
                             <section className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4'>
                                 <div className='flex gap-2 items-center'>
@@ -56,7 +63,7 @@ const OrderDetails = () => {
                     ))
                 }
             </div>
-            <hr/>
+            <hr />
 
             <div className='flex flex-col gap-3'>
                 <h1 className='text-xl font-bold'>Shipping Addres :</h1>

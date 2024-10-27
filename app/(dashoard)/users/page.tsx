@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from 'react'
+import toast from "react-hot-toast";
 
 function Users() {
 
@@ -22,6 +23,7 @@ function Users() {
     const [isEffect, setIsEffect] = useState(false);
     const [queary, setQueary] = useState("");
     const [allData, setAllData] = useState([]);
+    const [loading, setLoading] = useState(false)
 
 
 
@@ -49,14 +51,22 @@ function Users() {
     }
 
     const getUser = async () => {
-        const res = await fetch("/api/users", {
-            method: "GET"
-        });
-
-        if (res.ok) {
-            const data = await res.json()
-            setUsersData(data);
-            setAllData(data);
+        try {
+            setLoading(true)
+            const res = await fetch("/api/users", {
+                method: "GET"
+            });
+    
+            if (res.ok) {
+                const data = await res.json()
+                setUsersData(data);
+                setAllData(data);
+                setLoading(false)
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log("[users_GET]", error);
+            toast.error("Somthing went wrong! Please try agian");
         }
     }
 

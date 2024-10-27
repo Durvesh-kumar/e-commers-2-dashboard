@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Pagination from "@/app/components/Pagination";
+import toast from "react-hot-toast";
 
 const Collections = () => {
   const router = useRouter();
@@ -29,14 +30,20 @@ const Collections = () => {
 
   const [query, setQuery] = useState("")
   const getCollections = async () => {
-    const res = await fetch('/api/collections', {
-      method: "GET"
-    })
-    if (res.ok) {
-      const data = await res.json();
-      setLoading(false)
-      setCollections(data)
-      setAllCollections(data)
+    try {
+      const res = await fetch('/api/collections', {
+        method: "GET"
+      })
+      if (res.ok) {
+        const data = await res.json();
+        setLoading(false)
+        setCollections(data)
+        setAllCollections(data)
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log("[order_GET]", error);
+      toast.error("Somthing went wrong! Please try agian")
     }
   }
 

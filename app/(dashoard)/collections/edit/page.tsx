@@ -32,9 +32,6 @@ const getCollection = async ()=>{
     getCollection()
   }, [Id]);
 
-  console.log(date);
-  
-  
   return loading ? <Loader/> : (
     <CollectionForm initialData={collection}/>
   );

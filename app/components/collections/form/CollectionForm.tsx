@@ -67,6 +67,7 @@ const CollectionForm: React.FC<NewProps> = ({ initialData }) => {
         toast.error(data.message)
       };
     } catch (error) {
+      setLoading(false)
       console.log('[collectionNew_POST]', error);
       toast.error('Something went wrong! Please try agian');
     }

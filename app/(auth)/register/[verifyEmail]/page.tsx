@@ -34,6 +34,7 @@ function verifyEmail({ params }: { params: { verifyEmail: string } }) {
         setLoading(false)
       }
     } catch (error) {
+      setLoading(false);
       console.log("[VerifyToken]", error);
     };
   }

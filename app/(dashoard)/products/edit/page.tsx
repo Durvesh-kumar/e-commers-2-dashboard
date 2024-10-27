@@ -4,6 +4,7 @@ import ProductForm from "@/app/components/products/form/ProductForm";
 import { useSearchParams } from "next/navigation"
 
 import React, { useEffect, useState } from 'react'
+import toast from "react-hot-toast";
 
 function Edit() {
   const usePrams = useSearchParams()
@@ -26,14 +27,14 @@ function Edit() {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.log("[products-edit_GET]", error);
+      toast.error("Somthing went wrong! please try agian")
     }
   }
 
   useEffect(() => {
     getProducts()
   }, [productId])
-  console.log(products);
   
   return loading ? <Loader /> : (
     <ProductForm initialData={products} collectionId={collectionId}/>

@@ -59,16 +59,19 @@ const ProductForm: React.FC<ProductFormPropes> = ({ initialData, collectionId })
                 body: JSON.stringify(values)
             })
             const data = await res.json()
-            setLoading(false)
+            
             if (data.success) {
+                setLoading(false)
                 toast.success(`Products ${initialData ? 'updated' : 'created'} succesfully`);
                 const pageURL = collectionId ? "/collections/collectionProducts":  "/products"
                 router.replace(pageURL);
             }
             if (data.error) {
+                setLoading(false)
                 toast.error(data.message)
             }
         } catch (error) {
+            setLoading(false)
             console.log('[Products_POST]', error);
             toast.error('Something went wrong! Please try agian');
         }
@@ -76,13 +79,21 @@ const ProductForm: React.FC<ProductFormPropes> = ({ initialData, collectionId })
     }
 
     const getCollection = async () => {
-        const res = await fetch('/api/collections', {
-            method: "GET"
-        });
-
-        if (res.ok) {
-            const data = await res.json()
-            setCollections(data)
+        try {
+            setLoading(true)
+            const res = await fetch('/api/collections', {
+                method: "GET"
+            });
+    
+            if (res.ok) {
+                const data = await res.json();
+                setCollections(data);
+                setLoading(false);
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log("[ProdictForm_GET]", error);
+            toast.error("Somthing went wrong! Please try agian");
         }
     }
 

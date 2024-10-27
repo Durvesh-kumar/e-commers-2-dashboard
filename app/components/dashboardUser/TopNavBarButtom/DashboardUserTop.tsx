@@ -5,22 +5,37 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 function DashboardUserTop() {
+
+    const [loading, setLoading] = useState(false)
     const { status, data } = useSession();
 
     const router = useRouter();
 
     const handleLogOut = async () => {
+       try {
+        setLoading(true)
         const res = await fetch("/api/logOut", {
             method: "GET"
         })
         const data = await res.json();
         if (data.success) {
+            setLoading(false)
             toast.success(data.message);
             router.replace("/")
         }
+        if(data.error){
+            setLoading(false);
+            toast.error(data.error)
+        }
+       } catch (error) {
+        setLoading(false);
+        console.log("components-dashboardUser-TopNavBarDuttom_GET]", error);
+        toast.error("Somthing went wrong! Please try agian")
+       }
     }
 
     const ShowSession = () => {

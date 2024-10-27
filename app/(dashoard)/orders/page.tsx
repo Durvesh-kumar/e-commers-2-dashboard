@@ -13,6 +13,7 @@ import Loader from "@/app/components/custom/Loader";
 
 import { useEffect, useState } from "react";
 import Pagination from "@/app/components/Pagination";
+import toast from "react-hot-toast";
 
 export default function Products() {
     const [orders, setOrders] = useState<OrderType[]>([]);
@@ -22,14 +23,19 @@ export default function Products() {
     const [pages, setPages] = useState(1);
 
     const getProducts = async () => {
-        const res = await fetch("/api/orders", {
-            method: "GET"
-        })
-        if (res.ok) {
-            const data = await res.json();
-            setOrders(data);
-            setAllOrders(data)
-            setLoading(false)
+        try {
+            const res = await fetch("/api/orders", {
+                method: "GET"
+            })
+            if (res.ok) {
+                const data = await res.json();
+                setOrders(data);
+                setAllOrders(data)
+                setLoading(false)
+            }
+        } catch (error) {
+            console.log("[orders_GET]", error);
+            toast.error("Somthing went wrong! Please try agian")
         }
     }
 
