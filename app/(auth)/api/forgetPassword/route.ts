@@ -1,6 +1,7 @@
 import { ConnectedToDB } from "@/lib/db/ConnectToDB";
 import DashboardUser from "@/lib/models/DashboardUser";
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs"
 
 export const POST = async (req: NextRequest) => {
     try {
@@ -22,7 +23,10 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: "Invalid User", error: true, success: false }, { status: 400 });
         };
 
-        await DashboardUser.findByIdAndUpdate(user._id, { password: password });
+        const salt = await bcrypt.genSalt(15);
+        const hasshPassword = await bcrypt.hash(password, salt);
+
+        await DashboardUser.findByIdAndUpdate(user._id, { password: hasshPassword });
 
         return NextResponse.json({ message: "Update password successfully", error: false, success: true }, { status: 200 });
 
