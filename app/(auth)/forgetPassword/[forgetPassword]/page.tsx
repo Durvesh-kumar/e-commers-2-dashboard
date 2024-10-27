@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import Loader from "@/app/components/custom/Loader"
 
 const formSchema = z.object({
     password: z.string().min(2).max(50),
@@ -29,6 +31,7 @@ const formSchema = z.object({
 function ForgetPassword({ params }: { params: { forgetPassword: string } }) {
 
     const userId = decodeURIComponent(params.forgetPassword);
+    const [loading, setLoading] = useState(false)
     
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
@@ -41,22 +44,25 @@ function ForgetPassword({ params }: { params: { forgetPassword: string } }) {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log("HII");
         
         try {
+            setLoading(true)
             const res = await fetch(`/api/forgetPassword`, {
                 method: "POST",
                 body: JSON.stringify(values)
             });
             const data = await res.json()
             if (data.success) {
+                setLoading(false)
                 toast.success(data.message);
                 router.replace('/login');
             }
             if (data.error) {
+                setLoading(false)
                 toast.error(data.message)
             }
         } catch (error) {
+            setLoading(false)
             console.log(error);
             toast.error("Somthing wrong! please try agian")
         }
@@ -66,7 +72,7 @@ function ForgetPassword({ params }: { params: { forgetPassword: string } }) {
             e.preventDefault()
         }
     }
-    return (
+    return loading ? <Loader/> : (
         <div className="flex items-center justify-center h-screen bg-slate-50">
             <div className="flex flex-col p-5 border shadow-lg rounded-lg bg-white w-72">
                 <center className="font-bold my-5 text-3xl">Reset Password</center>
