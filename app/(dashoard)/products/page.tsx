@@ -164,7 +164,7 @@ export default function Products() {
                                                                             className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
                                                                             href={{
                                                                                 pathname: "products/edit",
-                                                                                query: { id: product._id },
+                                                                                query: { productId: product._id },
                                                                             }}
                                                                         >
                                                                             <Edit2 className="h-5 w-5 m-1.5" />
