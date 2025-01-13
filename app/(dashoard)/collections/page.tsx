@@ -84,7 +84,7 @@ const Collections = () => {
         {
           data ? (
             data?.role !== "Gernal" && (<Button onClick={() => router.push('/collections/new')} className="bg-blue-500 text-white hover:bg-white hover:text-black w-fit px-4 border hover:border-2 flex gap-2"><Plus /> Collection</Button>)
-          ) : null
+          )
         }
 
       </div>
