@@ -93,7 +93,7 @@ export default function Products() {
                 data && (
                     <div className="flex item-center justify-end">
                         {
-                            data?.role !== "Gerenal" && (
+                            data?.role != "Gerenal" && (
                                 <Button onClick={() => router.push('/products/new')}
                                     className="bg-blue-500 text-white hover:bg-white hover:text-black w-fit px-4 border hover:border-2 flex gap-2">
                                     <Plus /> Product
@@ -163,7 +163,7 @@ export default function Products() {
                                                                         <Link
                                                                             className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
                                                                             href={{
-                                                                                pathname: "products/edit",
+                                                                                pathname: "/products/edit",
                                                                                 query: { productId: product._id, collectionId: product.collections._id },
                                                                             }}
                                                                         >

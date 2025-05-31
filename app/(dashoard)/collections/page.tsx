@@ -139,7 +139,7 @@ const Collections = () => {
                                 <Link
                                   className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
                                   href={{
-                                    pathname: "collections/edit",
+                                    pathname: "/collections/edit",
                                     query: { id: collection._id },
                                   }}
                                 >
