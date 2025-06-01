@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Pagination from "@/app/components/Pagination";
-import toast from "react-hot-toast";
 
 const Collections = () => {
   const router = useRouter();
@@ -30,20 +29,14 @@ const Collections = () => {
 
   const [query, setQuery] = useState("")
   const getCollections = async () => {
-    try {
-      const res = await fetch('/api/collections', {
-        method: "GET"
-      })
-      if (res.ok) {
-        const data = await res.json();
-        setLoading(false)
-        setCollections(data)
-        setAllCollections(data)
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log("[order_GET]", error);
-      toast.error("Somthing went wrong! Please try agian")
+    const res = await fetch('/api/collections', {
+      method: "GET"
+    })
+    if (res.ok) {
+      const data = await res.json();
+      setLoading(false)
+      setCollections(data)
+      setAllCollections(data)
     }
   }
 
@@ -84,7 +77,7 @@ const Collections = () => {
         {
           data ? (
             data?.role !== "Gernal" && (<Button onClick={() => router.push('/collections/new')} className="bg-blue-500 text-white hover:bg-white hover:text-black w-fit px-4 border hover:border-2 flex gap-2"><Plus /> Collection</Button>)
-          )
+          ) : null
         }
 
       </div>
@@ -139,7 +132,7 @@ const Collections = () => {
                                 <Link
                                   className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
                                   href={{
-                                    pathname: "/collections/edit",
+                                    pathname: "collections/edit",
                                     query: { id: collection._id },
                                   }}
                                 >
