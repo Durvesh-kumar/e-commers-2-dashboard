@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 
 function Edit() {
   const usePrams = useSearchParams()
+  console.log("useSearchParams", usePrams);
+  
   const productId = usePrams.get("productId");
   const collectionId = usePrams.get("collectionId")
   
