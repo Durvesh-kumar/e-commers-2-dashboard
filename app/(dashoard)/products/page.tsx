@@ -162,10 +162,11 @@ export default function Products() {
                                                                     data?.role !== "Gerenal" && (
                                                                         <Link
                                                                             className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
-                                                                            href={{
-                                                                                pathname: "products/edit",
-                                                                                query: { productId: product._id, collectionId: product.collections._id },
-                                                                            }}
+                                                                            // href={{
+                                                                            //     pathname: "products/edit",
+                                                                            //     query: { productId: product._id, collectionId: product.collections._id },
+                                                                            // }}
+                                                                            href={`/products/edit?productId=${product._id}&collectionId=${product.collections._id}`}
                                                                         >
                                                                             <Edit2 className="h-5 w-5 m-1.5" />
                                                                         </Link>

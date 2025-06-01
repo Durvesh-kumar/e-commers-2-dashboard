@@ -131,10 +131,11 @@ const Collections = () => {
                               data?.role !== "Gerenal" && (
                                 <Link
                                   className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
-                                  href={{
-                                    pathname: "collections/edit",
-                                    query: { id: collection._id },
-                                  }}
+                                  // href={{
+                                  //   pathname: "collections/edit",
+                                  //   query: { id: collection._id },
+                                  // }}
+                                  href={`/collections/edit?id=${collection._id}`}
                                 >
                                   <Edit2 className="h-5 w-5 m-1.5" />
                                 </Link>
