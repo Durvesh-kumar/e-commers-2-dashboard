@@ -163,7 +163,7 @@ export default function Products() {
                                                                         <Link
                                                                             className="flex items-center justify-center shadow-lg bg-blue-600 hover:bg-white text-white hover:text-black rounded border"
                                                                             href={{
-                                                                                pathname: "/products/edit",
+                                                                                pathname: "products/edit",
                                                                                 query: { productId: product._id, collectionId: product.collections._id },
                                                                             }}
                                                                         >
