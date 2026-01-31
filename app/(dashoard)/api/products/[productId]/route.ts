@@ -1,6 +1,6 @@
 import { ConnectedToDB } from "@/lib/db/ConnectToDB";
 import Product from "@/lib/models/Product";
-import { Collection } from "mongoose";
+import Collection from "@/lib/models/Collection";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
