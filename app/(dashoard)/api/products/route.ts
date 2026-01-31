@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
     try {
-
         const secret = process.env.AUTH_SECRET!
 
         const token = await getToken({ req, secret });
